@@ -1,0 +1,318 @@
+@import "variables";
+@import "fonts";
+@import "helpers";
+
+body
+{
+	color: $darker;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.app-content
+{
+	min-height:100%;
+	position: relative;
+}
+.page-content
+{
+	padding-bottom: 60px + $standard-padding;
+}
+
+.pagination {
+	margin-top: 0;
+	margin-bottom: $standard-padding;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	min-height: 60px;
+	background-color: $darker;
+}
+
+.navbar
+{
+	border: none;
+	border-radius: 0;
+
+	.navbar-right {
+		margin-right: 0;
+	}
+
+	&.top
+	{
+		height: 75px;
+		margin-bottom: 0;
+		background-color: $darker;
+
+		.navbar-header
+		{
+			height: 100%;
+
+			.navbar-brand {
+				height: 100%;
+				padding: 27.5px 15px;
+			}
+		}
+
+		.navbar-nav {
+			& > li {
+				& > a {
+					padding-top: 27.5px;
+					padding-bottom: 27.5px;
+
+					&:hover, &:focus, &.active {
+						background-color: $dark;
+					}
+				}
+			}
+		}
+
+		a {
+			color: $lighter;
+		}
+	}
+	&.bottom
+	{
+		height: 35px;
+		min-height: 35px;
+		background-color: $dark;
+
+		.breadcrumb
+		{
+			background: none;
+			border-radius: 0;
+			padding-left: 0;
+			padding-right: 0;
+
+			a { color: $light; }
+			.active { color: $lighter; }
+		}
+	}
+}
+
+.brands
+{
+	.brand-container
+	{
+		padding-top: $standard-padding;
+		padding-bottom: $standard-padding;
+	}
+	.brand
+	{
+		transition-property: background-position;
+		transition-duration: $transition-duration;
+		display: block;
+		background: right -20px center;
+		height: 275px;
+		color: white;
+
+		.overlay
+		{
+			transition-property: background;
+			transition-duration: $transition-duration;
+			background: rgba(0, 0, 0, 0.5);
+			padding: $standard-padding;
+			height: 100%;
+		}
+
+		&:hover
+		{
+			transition-property: background-position;
+			transition-duration: $transition-duration;
+			text-decoration: none;
+			background-position: right;
+
+			.overlay
+			{
+				transition-property: background;
+				transition-duration: $transition-duration;
+				background: rgba(0, 0, 0, 0.8);
+				background-position: right;
+			}
+		}
+	}
+}
+
+.cards
+{
+	.card-container {
+		margin-bottom: $standard-padding * 2;
+	}
+	.card
+	{
+		padding: $standard-padding;
+		background-color: $dark;
+		display: block;
+		position: relative;
+		color: $lighter;
+
+		img {
+			width: 100%;
+		}
+
+		.card-info
+		{
+			position: absolute;
+			bottom: 0; left: 0; right: 0;
+			width: 100%;
+			background: rgba(0, 0, 0, 0.6);
+			padding: $standard-padding;
+			text-align: center;
+
+			.name {
+				margin: 0;
+				font-size: 1.3em;
+			}
+
+			.price {
+				margin: 0;
+				margin-top: $standard-padding / 2;
+				display: none;
+				font-style: italic;
+				color: $light;
+			}
+		}
+
+		&:hover
+		{
+			img {
+				opacity: 0.5;
+			}
+
+			.card-info
+			{
+				.price {
+					display: block;
+				}
+			}
+		}
+	}
+}
+
+.card-page
+{
+	.card-block-wrapper { margin-bottom: $standard-padding; }
+
+	.card-info
+	{
+		background-color: $dark;
+		padding: $standard-padding;
+		color: $lighter;
+
+		.splash-picture {
+			width: 100%;
+			-webkit-box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
+			-moz-box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
+			box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
+		}
+
+		.name {
+			margin: 0;
+		}
+		.brand {
+			margin-top: 0;
+			margin-bottom: $standard-padding;
+			font-style: italic;
+			color: $light;
+		}
+	}
+
+	.stores-comparator
+	{
+		background-color: $dark;
+		padding: $standard-padding;
+		color: $lighter;
+
+		.nav-tabs {
+			border: none;
+			margin-bottom: $standard-padding;
+
+			li {
+				margin-right: $standard-padding;
+
+				a {
+					border: none;
+					border-radius: 0;
+					background-color: $medium;
+					color: $lighter;
+				}
+
+				&.active {
+					a {
+						background-color: $light;
+						color: $darker;
+					}
+				}
+			}
+		}
+
+		.table
+		{
+			margin-bottom: 0;
+
+			th {
+				background-color: $medium;
+				color: $lighter;
+				border-bottom: 2px solid $darker;
+			}
+
+			tr {
+				background-color: $lighter;
+				color: $darker;
+
+				&:hover {
+					background-color: $light;
+				}
+
+				a { color: inherit; }
+				td { border-top: 1px solid $medium; }
+			}
+		}
+	}
+
+	.pictures-sidebar
+	{
+		background-color: $dark;
+		padding: $standard-padding;
+		color: $lighter;
+
+		.card-picture
+		{
+			max-width: 100%;
+		}
+
+		figcaption {
+			margin-top: $standard-padding / 2;
+			text-align: center;
+			color: $light;
+		}
+	}
+}
+
+.brand
+{
+	.brand-info-wrapper {
+		margin-bottom: $standard-padding;
+	}
+
+	.brand-info
+	{
+		background-color: $dark;
+		padding: $standard-padding;
+		color: $lighter;
+
+		.name {
+			margin: 0;
+			margin-bottom: $standard-padding;
+		}
+
+		.splash-picture {
+			width: 100%;
+			-webkit-box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
+			-moz-box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
+			box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
+		}
+	}
+}

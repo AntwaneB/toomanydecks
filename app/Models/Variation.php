@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Variation extends Model
 {
@@ -22,7 +23,7 @@ class Variation extends Model
 	public function stores()
 	{
 		return $this->belongsToMany(Store::class)
-					->orderBy('price', 'ASC')
-					->withPivot(['in_stock', 'price', 'url']);
+					->orderBy(DB::Raw('price'), 'ASC')
+					->withPivot(['in_stock', 'price', 'url', 'shipping']);
 	}
 }

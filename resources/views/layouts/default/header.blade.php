@@ -1,7 +1,7 @@
 <nav class="navbar top">
 	<div class="container">
 		<div class="navbar-header">
-			<a href="{{ route('app.index') }}" class="navbar-brand">Cards Comparator</a>
+			<a href="{{ route('app.index') }}" class="navbar-brand">TooManyDecks</a>
 		</div>
 
 		<ul class="nav navbar-nav navbar-right">

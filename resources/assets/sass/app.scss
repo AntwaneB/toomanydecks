@@ -15,6 +15,7 @@ body
 }
 .page-content
 {
+	margin-top: $standard-padding;
 	padding-bottom: 60px + $standard-padding;
 }
 
@@ -23,12 +24,40 @@ body
 	margin-bottom: $standard-padding;
 }
 
+dd {
+	margin-bottom: $standard-padding;
+}
+.close {
+	float: none;
+}
+
+.super-content
+{
+
+	.jumbotron {
+		height: 500px;
+		width: 100%;
+		background: url('/img/home/jumbotron_bg.jpg') no-repeat center center;
+		margin-bottom: 0;
+		color: $lighter;
+	}
+}
+
 .footer {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 	min-height: 60px;
 	background-color: $darker;
+	color: $lighter;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	a {
+		color: $medium;
+	}
 }
 
 .navbar
@@ -78,6 +107,7 @@ body
 		height: 35px;
 		min-height: 35px;
 		background-color: $dark;
+		margin-bottom: 0;
 
 		.breadcrumb
 		{
@@ -313,6 +343,88 @@ body
 			-webkit-box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
 			-moz-box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
 			box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.15);
+		}
+	}
+}
+
+.recent-decks
+{
+	.proportional-container
+	{
+		position: relative;
+		width: 100%;
+		padding-bottom: 100%;
+		float: left;
+		height: 0;
+		overflow: hidden;
+		text-align: center;
+
+		img {
+			transition-property: margin-top, margin-left;
+			transition-duration: $transition-duration;
+
+			width: 150%;
+			margin-top: -50%;
+			margin-left: -20%;
+			transform: rotate(-15deg);
+		}
+
+		&:hover {
+			img {
+				transition-property: margin-top, margin-left;
+				transition-duration: $transition-duration;
+
+				margin-top: -55%;
+				margin-left: -25%;
+			}
+		}
+	}
+}
+
+.stats
+{
+	.stat-block
+	{
+		position: relative;
+		width: 100%;
+		padding-bottom: 100%;
+		float: left;
+		height: 0;
+		text-align: center;
+		background-size: cover;
+
+		.content {
+			transition-property: background-color;
+			transition-duration: $transition-duration;
+
+			background-color: rgba(0, 0, 0, 0.6);
+			position: absolute;
+			top: 0; left: 0; bottom: 0; right: 0;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			&:hover, &:focus, &:active {
+				text-decoration: none;
+			}
+
+			&:hover {
+				transition-property: background-color;
+				transition-duration: $transition-duration;
+
+				background-color: rgba(0, 0, 0, 0.8);
+			}
+		}
+
+		h3 {
+			color: $lighter;
+			font-size: 4em;
+		}
+		p {
+			color: $light;
+			font-size: 1.5em;
+
 		}
 	}
 }

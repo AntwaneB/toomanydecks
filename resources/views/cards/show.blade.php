@@ -15,7 +15,7 @@
 			<div class="card-info">
 				<div class="row">
 					<div class="col-md-6">
-						<img class="splash-picture" src="{{ $card->splashPicture->path ?? "/img/misc/card-splash-default.png" }}" alt="{{ trans('cards.splash_picture_alt') }}" />
+						<img class="splash-picture" src="{{ $card->splashPicture->path ?? '/img/misc/card-splash-default.png' }}" alt="{{ trans('cards.splash_picture_alt') }}" />
 					</div>
 					<div class="col-md-6 col-no-left-padding">
 						<h1 class="name">{{ $card->name }}</h1>

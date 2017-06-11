@@ -24,6 +24,13 @@ class Card extends Model
 		return $this->hasManyThrough(Picture::class, Variation::class);
 	}
 
+    public function variationsCount()
+    {
+        return $this->hasOne(Variation::class)
+            ->selectRaw('card_id, count(*) as aggregate')
+            ->groupBy('card_id');
+    }
+
 	/*
 	 * Accessors
 	 */
@@ -74,4 +81,14 @@ class Card extends Model
 
 		return $mainPicture;
 	}
+
+    public function getVariationsCountAttribute()
+    {
+        if (!array_key_exists('variationsCount', $this->relations))
+            $this->load('variationsCount');
+
+        $related = $this->getRelation('variationsCount');
+
+        return $related ? (int) $related->aggregate : 0;
+    }
 }

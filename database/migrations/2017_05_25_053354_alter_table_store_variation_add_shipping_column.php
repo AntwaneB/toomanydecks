@@ -14,7 +14,7 @@ class AlterTableStoreVariationAddShippingColumn extends Migration
     public function up()
     {
         Schema::table('store_variation', function (Blueprint $table) {
-            //
+            $table->double('shipping')->default(null)->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AlterTableStoreVariationAddShippingColumn extends Migration
     public function down()
     {
         Schema::table('store_variation', function (Blueprint $table) {
-            //
+            $table->dropColumn('shipping');
         });
     }
 }

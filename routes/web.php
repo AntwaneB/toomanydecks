@@ -2,26 +2,40 @@
 
 use Illuminate\Support\Facades\Artisan;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', ['as' => 'app.index', 'uses' => 'AppController@index']);
+Route::get('/', 'AppController@index')->name('app.index');
+Route::get('/about', 'AppController@about')->name('app.about');
 
 Route::resource('brands', 'BrandController');
 
 Route::resource('cards', 'CardController');
 
-Route::group(['prefix' => '/crawlers'], function(){
+Route::resource('stores', 'StoreController');
+
+Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], function()
+{
+    Route::get('/', 'AdminController@index')->name('index');
+
+    Route::resource('cards', 'CardController');
+
+    Route::resource('brands', 'BrandController');
+
+    Route::resource('variations', 'VariationController');
+
+    Route::resource('stores', 'StoreController');
+});
+
+
+
+
+Route::group(['prefix' => '/crawlers'], function()
+{
 	Route::get('/artofplay', function(){
 		Artisan::call('db:seed', ['--class' => 'ArtOfPlayCrawlerSeeder']);
+		Artisan::output();
+	});
+
+	Route::get('/ellusionist', function(){
+		Artisan::call('db:seed', ['--class' => 'EllusionistCrawlerSeeder']);
 		Artisan::output();
 	});
 });

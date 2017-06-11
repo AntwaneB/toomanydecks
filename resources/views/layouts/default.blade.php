@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -10,12 +11,16 @@
 	<script type="text/javascript" src="/js/jquery.min.js"></script>
 	<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 
-	<title>@yield('title') | Cards Comparator</title>
+	<title>@yield('title') | TooManyDecks</title>
 </head>
 
 <body>
 <div class="app-content">
 	@include('layouts.default.header')
+
+	<div class="super-content">
+		@yield('super-content')
+	</div>
 
 	<div class="container page-content">
 		@yield('content')
@@ -23,5 +28,6 @@
 
 	@include('layouts.default.footer')
 </div>
+<script type="text/javascript" src="/js/count.js"></script>
 </body>
 </html>

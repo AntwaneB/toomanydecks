@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Card;
+use App\Models\Variation;
 use Illuminate\Http\Request;
 
 class CardController extends Controller
@@ -52,6 +54,7 @@ class CardController extends Controller
     public function show(Card $card)
     {
 		$card->load('brand');
+		$card->load('variations.stores');
 
         return view('cards.show', [
 			'card' => $card,

@@ -16,10 +16,10 @@
 	<div class="col-md-12">
 		<table class="table table-striped table-hover table-condensed">
 			<thead>
-			<th>{{ trans('brands.name') }}</th>
-			<th>{{ trans('brands.website') }}</th>
-			<th>{{ trans('app.edit') }}</th>
-			<th>{{ trans('app.delete') }}</th>
+				<th>{{ trans('brands.name') }}</th>
+				<th>{{ trans('brands.website') }}</th>
+				<th>{{ trans('app.edit') }}</th>
+				<th>{{ trans('app.delete') }}</th>
 			</thead>
 			<tbody>
 			@foreach ($brands as $brand)

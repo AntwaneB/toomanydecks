@@ -25,6 +25,11 @@
                     {{ trans('stores.index') }}
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin.crawlers.index') }}" @if (preg_match('#^admin\.crawlers\..+#', Route::currentRouteName())) class="active" @endif>
+                    {{ trans('crawlers.index') }}
+                </a>
+            </li>
         </ul>
     </div>
 </nav>

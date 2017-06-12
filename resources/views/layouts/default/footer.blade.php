@@ -2,9 +2,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 text-left">
+				{{--
 				{{ trans('app.created_by', ['name' => 'Antoine Buchser']) }}
 				-
 				<a href="http://antoine.buchser.fr" target="_blank">{{ trans('app.see_online') }}</a>
+				--}}
 			</div>
 			<div class="col-md-4 text-center">
 				TooManyDecks &copy; 2017

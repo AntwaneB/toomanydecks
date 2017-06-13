@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\Crawling\ArtOfPlayCrawler;
 use App\Console\Commands\Crawling\BlackIncPlayingCardsCrawler;
 use App\Console\Commands\Crawling\DavidBlaineListCrawler;
 use App\Console\Commands\Crawling\JPPlayingCardsListCrawler;
@@ -21,6 +22,7 @@ class Kernel extends ConsoleKernel
 	    KingOfCardsListCrawler::class,
 	    DavidBlaineListCrawler::class,
 	    BlackIncPlayingCardsCrawler::class,
+	    ArtOfPlayCrawler::class,
     ];
 
     /**

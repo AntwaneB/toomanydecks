@@ -6,6 +6,8 @@ use App\Models\Crawling\Crawler;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 class CrawlerController extends Controller
 {
@@ -30,7 +32,7 @@ class CrawlerController extends Controller
      */
     public function create()
     {
-    	$stores = Store::orderBy('name')->get();
+    	$stores = Store::whereDoesntHave('crawler')->orderBy('name')->get();
 
         return view('admin.crawlers.create', [
 			'stores' => $stores,
@@ -50,6 +52,13 @@ class CrawlerController extends Controller
         	'list_url' => 'required',
         	'list_frequency' => 'required',
         	'cards_frequency' => 'required',
+	        'individual_selector' => 'required',
+	        'url_selector' => 'required',
+	        'brand_selector' => '',
+	        'name_selector' => '',
+	        'description_selector' => '',
+	        'in_stock_selector' => '',
+	        'price_selector' => '',
         ]);
 
         $crawler = new Crawler();
@@ -57,9 +66,16 @@ class CrawlerController extends Controller
         $crawler->list_url = $request->get('list_url');
         $crawler->list_frequency = $request->get('list_frequency');
         $crawler->cards_frequency = $request->get('cards_frequency');
+        $crawler->individual_selector = $request->get('individual_selector');
+        $crawler->url_selector = $request->get('url_selector');
+        $crawler->brand_selector = $request->get('brand_selector');
+        $crawler->name_selector = $request->get('name_selector');
+        $crawler->description_selector = $request->get('description_selector');
+        $crawler->in_stock_selector = $request->get('in_stock_selector');
+        $crawler->price_selector = $request->get('price_selector');
         $crawler->save();
 
-        return redirect()->route('admin.crawlers.index');
+        return redirect()->route('admin.crawlers.show', $crawler);
     }
 
     /**
@@ -70,7 +86,12 @@ class CrawlerController extends Controller
      */
     public function show(Crawler $crawler)
     {
-        //
+    	$crawler->load('store');
+    	$crawler->load('cardPages');
+
+    	return view('admin.crawlers.show', [
+    		'crawler' => $crawler,
+	    ]);
     }
 
     /**
@@ -81,7 +102,11 @@ class CrawlerController extends Controller
      */
     public function edit(Crawler $crawler)
     {
-        //
+        $crawler->load('store');
+
+        return view('admin.crawlers.edit', [
+        	'crawler' => $crawler,
+        ]);
     }
 
     /**
@@ -93,7 +118,32 @@ class CrawlerController extends Controller
      */
     public function update(Request $request, Crawler $crawler)
     {
-        //
+	    $this->validate($request, [
+		    'list_url' => 'required',
+		    'list_frequency' => 'required',
+		    'cards_frequency' => 'required',
+		    'individual_selector' => 'required',
+		    'url_selector' => 'required',
+		    'brand_selector' => '',
+		    'name_selector' => '',
+		    'description_selector' => '',
+		    'in_stock_selector' => '',
+		    'price_selector' => '',
+	    ]);
+
+	    $crawler->list_url = $request->get('list_url');
+	    $crawler->list_frequency = $request->get('list_frequency');
+	    $crawler->cards_frequency = $request->get('cards_frequency');
+	    $crawler->individual_selector = $request->get('individual_selector');
+	    $crawler->url_selector = $request->get('url_selector');
+	    $crawler->brand_selector = $request->get('brand_selector');
+	    $crawler->name_selector = $request->get('name_selector');
+	    $crawler->description_selector = $request->get('description_selector');
+	    $crawler->in_stock_selector = $request->get('in_stock_selector');
+	    $crawler->price_selector = $request->get('price_selector');
+	    $crawler->save();
+
+	    return redirect()->route('admin.crawlers.show', $crawler);
     }
 
     /**
@@ -127,5 +177,20 @@ class CrawlerController extends Controller
     	$crawler->save();
 
     	return redirect()->back();
+    }
+
+    public function run(Crawler $crawler)
+    {
+    	$crawler->load('store');
+
+	    Artisan::call('crawler:list:' . $crawler->store->slug);
+	    $output = Artisan::output();
+
+	    if (empty($output))
+	    {
+	    	$output = trans('crawlers.no_output');
+	    }
+
+	    return redirect()->route('admin.crawlers.show', $crawler)->with(['output' => $output]);
     }
 }

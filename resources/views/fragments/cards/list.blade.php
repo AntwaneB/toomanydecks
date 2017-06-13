@@ -7,7 +7,7 @@
 <div class="row cards">
 	@foreach ($cards as $card)
 	<div class="col-lg-3 col-md-4 col-sm-12 card-container">
-		<a href="{{ route('cards.show', $card->id) }}"  class="card">
+		<a href="{{ route('cards.show', $card->id) }}" class="card">
 			<img src="{{ !empty($card->mainBackPicture) ? $card->mainBackPicture->path : '/img/misc/card-back-default.png' }}" alt="" />
 			<div class="card-info">
 				<h2 class="name">{{ $card->name }}</h2>

@@ -14,7 +14,7 @@ class AlterTableCrawlersAddDataSelectors extends Migration
     public function up()
     {
         Schema::table('crawling_crawlers', function (Blueprint $table) {
-            $table->string('invidivual_selector')->nullable();
+            $table->string('individual_selector')->nullable();
             $table->string('url_selector')->nullable();
             $table->string('brand_selector')->nullable();
             $table->string('name_selector')->nullable();
@@ -32,7 +32,7 @@ class AlterTableCrawlersAddDataSelectors extends Migration
     public function down()
     {
         Schema::table('crawling_crawlers', function (Blueprint $table) {
-            $table->dropColumn('invidivual_selector');
+            $table->dropColumn('individual_selector');
             $table->dropColumn('url_selector');
             $table->dropColumn('brand_selector');
             $table->dropColumn('name_selector');

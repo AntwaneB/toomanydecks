@@ -50,4 +50,9 @@ Route::group(['prefix' => '/crawlers'], function()
 		Artisan::call('crawler:list:jpplayingcards');
 		Artisan::output();
 	});
+
+	Route::get('/davidblaine', function(){
+		Artisan::call('crawler:list:davidblaine');
+		Artisan::output();
+	});
 });

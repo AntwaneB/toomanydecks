@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', trans('cards.index'))
+@section('title', trans('crawlers.index'))
 
 @section('content')
 
@@ -32,7 +32,7 @@
 			@foreach ($crawlers as $crawler)
 				<tr>
 					<td>
-						{{ $crawler->store->name }}
+						<a href="{{ route('admin.crawlers.show', $crawler) }}">{{ $crawler->store->name }}</a>
 					</td>
 					<td>
 						<span title="{{ $crawler->list_url }}" onclick="window.prompt('Copy to clipboard: Ctrl + C', '{{ $crawler->list_url }}');">
@@ -40,7 +40,7 @@
 						</span>
 					</td>
 					<td>
-						{{ $crawler->list_frequency }}
+						<code>{{ $crawler->list_frequency }}</code>
 					</td>
 					<td>
 						<span class="text-{{ $crawler->last_list_run_success ? 'success' : 'danger' }}">
@@ -55,7 +55,7 @@
 						</a>
 					</td>
 					<td>
-						{{ $crawler->cards_frequency }}
+						<code>{{ $crawler->cards_frequency }}</code>
 					</td>
 					<td>
 						<span class="text-{{ $crawler->last_cards_run_success ? 'success' : 'danger' }}">

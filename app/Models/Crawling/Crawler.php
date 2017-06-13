@@ -13,4 +13,9 @@ class Crawler extends Model
 	{
 		return $this->belongsTo(Store::class);
 	}
+
+	public function cardPages()
+	{
+		return $this->hasMany(CardPage::class);
+	}
 }

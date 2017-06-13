@@ -5,6 +5,7 @@ namespace App\Console\Commands\Crawling;
 use App\Models\Crawling\CardPage;
 use App\Models\Crawling\Crawler;
 use Goutte\Client;
+use Symfony\Component\DomCrawler\Crawler as DOMCrawler;
 use Illuminate\Console\Command;
 
 abstract class ListCrawler extends Command
@@ -26,6 +27,11 @@ abstract class ListCrawler extends Command
     protected $httpClient;
     protected $crawler;
     protected $currentPage = 0;
+
+    protected $cardPagesCount = [
+    	'new' => 0,
+	    'old' => 0,
+    ];
 
     /**
      * Create a new command instance.
@@ -50,6 +56,8 @@ abstract class ListCrawler extends Command
     	if ($this->crawler->list_state != 'ON')
     		return;
 
+	    $this->info("[List Crawler - " . $this->crawler->store->name . "] START");
+
     	$this->crawler->last_list_run = new \DateTime();
     	$this->crawler->list_state = 'RUNNING';
     	$this->crawler->save();
@@ -65,21 +73,31 @@ abstract class ListCrawler extends Command
 	    $this->crawler->last_list_completion = new \DateTime();
 	    $this->crawler->list_state = 'ON';
 	    $this->crawler->save();
+
+	    $this->info("[List Crawler - " . $this->crawler->store->name . "] END (" . $this->cardPagesCount['new'] . " new, " . $this->cardPagesCount['old'] . " updated)");
     }
 
 	protected function currentPageCardPages()
 	{
+		$this->info("[List Crawler - " . $this->crawler->store->name . "] Crawling page $this->currentPage");
+
 		$listCrawler = $this->httpClient->request('GET', $this->getNextPageURL());
 
-		$listCrawler->filter($this->crawler->invidivual_selector)
-					->each(function ($individualCard) {
-						$cardPageURL = $individualCard->filter($this->crawler->url_selector)->attr('href');
+		$listCrawler->filter($this->crawler->individual_selector)
+					->each(function (DOMCrawler $individualCard) {
+						$cardPageURL = $individualCard->filter($this->crawler->url_selector)->link()->getUri();
 
-						$cardPage = CardPage::firstOrCreate([
+						$cardPage = CardPage::firstOrNew([
 							'url' => $cardPageURL,
 							'crawler_id' => $this->crawler->id
 						]);
+
+						$this->cardPagesCount[$cardPage->exists ? 'old' : 'new']++;
+
+						$cardPage->save();
 					});
+
+		$this->info("[List Crawler - " . $this->crawler->store->name . "] Done crawling page $this->currentPage");
 	}
 
     protected function getNextPageURL()

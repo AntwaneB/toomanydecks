@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\Crawling\BlackIncPlayingCardsCrawler;
+use App\Console\Commands\Crawling\DavidBlaineListCrawler;
 use App\Console\Commands\Crawling\JPPlayingCardsListCrawler;
 use App\Console\Commands\Crawling\KingOfCardsListCrawler;
 use Illuminate\Console\Scheduling\Schedule;
@@ -17,6 +19,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         JPPlayingCardsListCrawler::class,
 	    KingOfCardsListCrawler::class,
+	    DavidBlaineListCrawler::class,
+	    BlackIncPlayingCardsCrawler::class,
     ];
 
     /**

@@ -12,7 +12,7 @@ class JPPlayingCardsListCrawler extends ListCrawler
      *
      * @var string
      */
-    protected $signature = 'crawler:list:jpplayingcards';
+    protected $signature = 'crawler:list:jp-playing-cards';
 
     /**
      * Create a new command instance.

@@ -17,4 +17,6 @@ return [
     'edit' => 'Edit',
     'delete' => 'Delete',
 	'reset' => 'Reset',
+
+	'select_one' => 'Select one...',
 ];

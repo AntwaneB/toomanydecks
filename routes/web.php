@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
-
 Route::get('/', 'AppController@index')->name('app.index');
 Route::get('/about', 'AppController@about')->name('app.about');
 
@@ -23,36 +21,18 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
 
     Route::resource('stores', 'StoreController');
 
-    Route::group(['prefix' => '/crawlers', 'as' => 'crawlers.'], function(){
-    	Route::get('/{crawler}/run', 'CrawlerController@run')->name('run');
-    	Route::get('/{crawler}/list-toggle', 'CrawlerController@listToggle')->name('list-toggle');
-    	Route::get('/{crawler}/cards-toggle', 'CrawlerController@cardsToggle')->name('cards-toggle');
+    Route::group(['prefix' => '/crawlers', 'as' => 'crawlers.'], function() {
+    	Route::group(['prefix' => '/{crawler}'], function() {
+		    Route::get('/run/list', 'CrawlerController@runList')->name('run.list');
+		    Route::get('/run/cards', 'CrawlerController@runCards')->name('run.cards');
+		    Route::get('/list-toggle', 'CrawlerController@listToggle')->name('list-toggle');
+		    Route::get('/cards-toggle', 'CrawlerController@cardsToggle')->name('cards-toggle');
+
+		    Route::group(['prefix' => '/cards-data', 'as' => 'cards-data.'], function() {
+				Route::post('/new-card', 'CardDataController@newCard')->name('new-card');
+		    });
+		    Route::resource('cards-data', 'CardDataController');
+	    });
     });
     Route::resource('crawlers', 'CrawlerController');
-});
-
-
-
-
-Route::group(['prefix' => '/crawlers'], function()
-{
-	Route::get('/artofplay', function(){
-		Artisan::call('db:seed', ['--class' => 'ArtOfPlayCrawlerSeeder']);
-		Artisan::output();
-	});
-
-	Route::get('/ellusionist', function(){
-		Artisan::call('db:seed', ['--class' => 'EllusionistCrawlerSeeder']);
-		Artisan::output();
-	});
-
-	Route::get('/jpplayingcards', function(){
-		Artisan::call('crawler:list:jpplayingcards');
-		Artisan::output();
-	});
-
-	Route::get('/davidblaine', function(){
-		Artisan::call('crawler:list:davidblaine');
-		Artisan::output();
-	});
 });

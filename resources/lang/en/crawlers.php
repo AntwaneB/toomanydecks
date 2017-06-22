@@ -13,6 +13,10 @@ return [
 	'last_cards_completion' => 'Last cards completion',
 	'cards_state' => 'Cards state',
 	'run' => 'Run',
+	'run_list' => 'Crawl list',
+	'run_cards' => 'Crawl cards',
+	'list' => 'List',
+	'cards' => 'Cards',
 	'never' => 'never',
 
 	'parsing_configuration' => 'Parsing configuration',

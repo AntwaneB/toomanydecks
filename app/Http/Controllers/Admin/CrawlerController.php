@@ -179,11 +179,26 @@ class CrawlerController extends Controller
     	return redirect()->back();
     }
 
-    public function run(Crawler $crawler)
+    public function runList(Crawler $crawler)
     {
     	$crawler->load('store');
 
 	    Artisan::call('crawler:list:' . $crawler->store->slug);
+	    $output = Artisan::output();
+
+	    if (empty($output))
+	    {
+	    	$output = trans('crawlers.no_output');
+	    }
+
+	    return redirect()->route('admin.crawlers.show', $crawler)->with(['output' => $output]);
+    }
+
+    public function runCards(Crawler $crawler)
+    {
+    	$crawler->load('store');
+
+	    Artisan::call('crawler:cards:' . $crawler->store->slug);
 	    $output = Artisan::output();
 
 	    if (empty($output))

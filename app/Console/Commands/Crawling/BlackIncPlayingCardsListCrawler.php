@@ -5,14 +5,14 @@ namespace App\Console\Commands\Crawling;
 use App\Models\Crawling\Crawler;
 use App\Models\Store;
 
-class ArtOfPlayCrawler extends ListCrawler
+class BlackIncPlayingCardsListCrawler extends ListCrawler
 {
 	/**
 	 * The name and signature of the console command.
 	 *
 	 * @var string
 	 */
-	protected $signature = 'crawler:list:art-of-play';
+	protected $signature = 'crawler:list:black-ink-playing-cards';
 
 	/**
 	 * Create a new command instance.
@@ -21,7 +21,7 @@ class ArtOfPlayCrawler extends ListCrawler
 	 */
 	public function __construct()
 	{
-		$store = Store::where('slug', 'art-of-play')->firstOrFail();
+		$store = Store::where('slug', 'black-ink-playing-cards')->firstOrFail();
 		$crawler = Crawler::where('store_id', $store->id)->firstOrFail();
 
 		parent::__construct($crawler);
@@ -29,6 +29,6 @@ class ArtOfPlayCrawler extends ListCrawler
 
 	protected function hasNextPage()
 	{
-		return $this->currentPage < 5;
+		return $this->currentPage < 1;
 	}
 }

@@ -5,8 +5,24 @@
 @section('content')
 
 <div class="row">
+	<div class="col-md-12">
+		@if ($crawler->list_state == 'RUNNING')
+		<div class="alert alert-warning">
+			{{ trans('crawers.list_crawler_currently_running') }}
+		</div>
+		@endif
+		@if ($crawler->cards_state == 'RUNNING')
+		<div class="alert alert-warning">
+			{{ trans('crawers.cards_crawler_currently_running') }}
+		</div>
+		@endif
+	</div>
+</div>
+
+<div class="row">
 	<div class="col-md-6">
 		<a href="{{ route('admin.crawlers.edit', $crawler->id) }}" class="btn btn-primary">{{ trans('app.edit') }}</a>
+		<a href="{{ route('admin.crawlers.cards-data.index', $crawler->id) }}" class="btn btn-primary">{{ trans('cards_data.index') }}</a>
 	</div>
 	<div class="col-md-6 text-right">
 		@if ($crawler->list_state != 'RUNNING')
@@ -19,7 +35,8 @@
 				{{ trans($crawler->cards_state == 'ON' ? 'crawlers.cards_parsing_on' : 'crawlers.cards_parsing_off') }}
 			</a>
 		@endif
-		<a href="{{ route('admin.crawlers.run', $crawler->id) }}" class="btn btn-primary">{{ trans('crawlers.run') }}</a>
+		<a href="{{ route('admin.crawlers.run.list', $crawler->id) }}" class="btn btn-primary">{{ trans('crawlers.run_list') }}</a>
+		<a href="{{ route('admin.crawlers.run.cards', $crawler->id) }}" class="btn btn-primary">{{ trans('crawlers.run_cards') }}</a>
 	</div>
 </div>
 

@@ -2,11 +2,15 @@
 
 namespace App\Console;
 
-use App\Console\Commands\Crawling\ArtOfPlayCrawler;
-use App\Console\Commands\Crawling\BlackIncPlayingCardsCrawler;
+use App\Console\Commands\Crawling\ArtOfPlayListCrawler;
+use App\Console\Commands\Crawling\BlackIncPlayingCardsCardPagesCrawler;
+use App\Console\Commands\Crawling\BlackIncPlayingCardsListCrawler;
+use App\Console\Commands\Crawling\DavidBlaineCardPagesCrawler;
 use App\Console\Commands\Crawling\DavidBlaineListCrawler;
 use App\Console\Commands\Crawling\JPPlayingCardsListCrawler;
 use App\Console\Commands\Crawling\KingOfCardsListCrawler;
+use App\Console\Commands\Crawling\Theory11CardPagesCrawler;
+use App\Console\Commands\Crawling\Theory11ListCrawler;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -21,8 +25,13 @@ class Kernel extends ConsoleKernel
         JPPlayingCardsListCrawler::class,
 	    KingOfCardsListCrawler::class,
 	    DavidBlaineListCrawler::class,
-	    BlackIncPlayingCardsCrawler::class,
-	    ArtOfPlayCrawler::class,
+	    BlackIncPlayingCardsListCrawler::class,
+	    Theory11ListCrawler::class,
+	    ArtOfPlayListCrawler::class,
+
+	    BlackIncPlayingCardsCardPagesCrawler::class,
+	    DavidBlaineCardPagesCrawler::class,
+	    Theory11CardPagesCrawler::class,
     ];
 
     /**

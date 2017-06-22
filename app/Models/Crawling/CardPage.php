@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CardPage extends Model
 {
-	protected $connection = 'crawling';
+	protected $table = 'crawling_card_pages';
 
 	protected $fillable = ['url', 'crawler_id'];
 

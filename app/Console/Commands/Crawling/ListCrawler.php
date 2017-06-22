@@ -62,15 +62,25 @@ abstract class ListCrawler extends Command
     	$this->crawler->list_state = 'RUNNING';
     	$this->crawler->save();
 
-	    while ($this->hasNextPage())
+    	try
 	    {
-	    	$this->currentPage++;
+		    while ($this->hasNextPage())
+		    {
+		        $this->currentPage++;
 
-	    	$this->currentPageCardPages();
+		        $this->currentPageCardPages();
+		    }
+
+		    $this->crawler->last_list_run_success = true;
+		    $this->crawler->last_list_completion = new \DateTime();
+	    }
+	    catch (\Exception $e)
+	    {
+	    	$this->error($e->getMessage());
+
+		    $this->crawler->last_list_run_success = false;
 	    }
 
-	    $this->crawler->last_list_run_success = true;
-	    $this->crawler->last_list_completion = new \DateTime();
 	    $this->crawler->list_state = 'ON';
 	    $this->crawler->save();
 
@@ -85,7 +95,11 @@ abstract class ListCrawler extends Command
 
 		$listCrawler->filter($this->crawler->individual_selector)
 					->each(function (DOMCrawler $individualCard) {
-						$cardPageURL = $individualCard->filter($this->crawler->url_selector)->link()->getUri();
+						$cardPageURL = '';
+						if ($this->crawler->url_selector == '&')
+							$cardPageURL = $individualCard->link()->getUri();
+						else
+							$cardPageURL = $individualCard->filter($this->crawler->url_selector)->link()->getUri();
 
 						$cardPage = CardPage::firstOrNew([
 							'url' => $cardPageURL,

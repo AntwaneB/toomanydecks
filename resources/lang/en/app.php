@@ -19,4 +19,8 @@ return [
 	'reset' => 'Reset',
 
 	'select_one' => 'Select one...',
+
+	'created_at' => 'Created at',
+	'updated_at' => 'Updated at',
+	'deleted_at' => 'Deleted at',
 ];

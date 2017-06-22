@@ -70,7 +70,8 @@
 						</a>
 					</td>
 					<td>
-						<a href="{{ route('admin.crawlers.run', $crawler->id) }}">{{ trans('crawlers.run') }}</a>
+						<a href="{{ route('admin.crawlers.run.list', $crawler->id) }}">{{ trans('crawlers.list') }}</a> -
+						<a href="{{ route('admin.crawlers.run.cards', $crawler->id) }}">{{ trans('crawlers.cards') }}</a>
 					</td><td>
 						<a href="{{ route('admin.crawlers.edit', $crawler->id) }}">{{ trans('app.edit') }}</a>
 					</td>
@@ -87,4 +88,5 @@
 		</table>
 	</div>
 </div>
+
 @endsection

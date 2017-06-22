@@ -30,6 +30,7 @@ class CreateCrawlingTableCardData extends Migration
 
 	        $table->foreign('card_page_id')->references('id')->on('crawling_card_pages')->onDelete('cascade');
 	        $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
+	        $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
         });
     }
 

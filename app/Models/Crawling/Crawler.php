@@ -18,4 +18,9 @@ class Crawler extends Model
 	{
 		return $this->hasMany(CardPage::class);
 	}
+
+	public function cardsData()
+	{
+		return $this->hasManyThrough(CardData::class, CardPage::class);
+	}
 }

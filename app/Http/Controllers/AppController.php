@@ -27,4 +27,9 @@ class AppController extends Controller
 			'stats' => $stats,
 		]);
 	}
+
+	public function comingSoon()
+	{
+		return view('app.coming-soon');
+	}
 }

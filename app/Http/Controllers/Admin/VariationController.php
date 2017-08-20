@@ -92,6 +92,8 @@ class VariationController extends Controller
 
 		$variation->name = $request->get('name');
 		$variation->description = $request->get('description');
+		$variation->save();
+
 		$variation->stores()->sync($stores);
 
 		return redirect()->route('admin.cards.show', $variation->card_id);

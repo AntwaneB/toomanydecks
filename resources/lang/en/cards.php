@@ -11,4 +11,5 @@ return [
     'variations_count' => 'Variations count',
     'brand' => 'Brand',
     'stores' => 'Stores',
+	'existing_variations' => 'Existing variations',
 ];

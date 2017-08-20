@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Crawling\CardData;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -29,6 +30,11 @@ class Card extends Model
         return $this->hasOne(Variation::class)
             ->selectRaw('card_id, count(*) as aggregate')
             ->groupBy('card_id');
+    }
+
+    public function cardData()
+    {
+    	return $this->hasMany(CardData::class);
     }
 
 	/*

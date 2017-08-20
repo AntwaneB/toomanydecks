@@ -17,7 +17,8 @@ return [
 	'distance' => 'Distance',
 	'select_match' => 'Select match',
 
-	'new_card_from_data' => 'New card from data',
+	'new_card_variation_from_data' => 'New card and variation from data',
+	'new_variation_from_data' => 'New variation from data',
 
 	'back_to_crawler' => 'Back to crawler',
 ];

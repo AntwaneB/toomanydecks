@@ -98,6 +98,7 @@ class CardController extends Controller
 		$card->load('brand');
 		$card->load('variations.stores');
 		$card->load('variations.pictures');
+		$card->load('variations.cardData');
 
 		$stores = Store::orderBy('name')->get();
 

@@ -29,6 +29,10 @@ class ArtOfPlayListCrawler extends ListCrawler
 
 	protected function hasNextPage()
 	{
-		return $this->currentPage < 5;
+		$crawler = $this->httpClient->request('GET', $this->getNextPageURL());
+
+		$hasNextPage = $crawler->filter('.pagination__wrapper a[rel=next]')->count() > 0;
+
+		return $hasNextPage;
 	}
 }

@@ -1,0 +1,123 @@
+@import "variables";
+@import "fonts";
+@import "helpers";
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i');
+
+body
+{
+	color: $lighter;
+	font-family: 'Lato', sans-serif;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.4);
+
+	height: 100%;
+	width: 100%;
+
+	background: url('/img/coming-soon/background.jpg') no-repeat top center;
+	background-size: cover;
+}
+
+.form-control
+{
+	background: rgba(255, 255, 255, 0.1);
+	color: $lighter;
+	border-color: rgba(255, 255, 255, 0.3);
+
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+}
+
+.form-control::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+	color:    $lighter;
+}
+.form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	color:    $lighter;
+	opacity:  1;
+}
+.form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+	color:    $lighter;
+	opacity:  1;
+}
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color:    $lighter;
+}
+.form-control::-ms-input-placeholder { /* Microsoft Edge */
+	color:    $lighter;
+}
+
+.logo
+{
+	font-weight: 300;
+	text-align: center;
+	margin-top: 150px;
+	font-size: 4em;
+
+	img {
+		max-width: 100%;
+		width: 400px;
+	}
+}
+
+.description
+{
+	text-align: center;
+	margin-top: 50px;
+	min-height: 140px;
+	font-size: 26px;
+	line-height: 1.4em;
+	font-weight: 300;
+}
+
+.info-text
+{
+	text-align: center;
+	margin-bottom: 30px;
+	font-size: 15px;
+	line-height: 1.4em;
+
+	a {
+		color: $lighter;
+		text-decoration: underline;
+	}
+}
+
+.medias
+{
+	padding-top: 100px;
+
+	.glyphicon, .fa {
+		margin-right: 10px;
+	}
+
+	a { color: $lighter; }
+
+	.icon {
+		height: 1.5em;
+		margin-right: 10px;
+	}
+}
+
+.navbar
+{
+	background: none;
+	border: none;
+}
+
+@media(max-width:767px)
+{
+	.logo
+	{
+		margin-top: 30px;
+	}
+
+	.medias
+	{
+		padding-top: 50px;
+	}
+}
+
+@media(min-width:768px){}
+@media(min-width:992px){}
+@media(min-width:1200px){}

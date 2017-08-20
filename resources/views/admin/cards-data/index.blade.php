@@ -5,10 +5,14 @@
 @section('content')
 
 <div class="row standard-margin-bottom">
-	<div class="col-md-12">
+	<div class="col-md-3">
 		<a href="{{ route('admin.crawlers.show', $crawler) }}" class="btn btn-primary">
 			<span class="glyphicon glyphicon-arrow-left"></span> {{ trans('cards_data.back_to_crawler') }}
 		</a>
+	</div>
+
+	<div class="col-md-9 text-right">
+		{{ $cardsData->links() }}
 	</div>
 </div>
 
@@ -110,7 +114,7 @@
 									<td colspan="4" class="text-center">
 										<form action="{{ route('admin.crawlers.cards-data.new-card', [$crawler, $cardData]) }}" method="post">
 											{{ csrf_field() }}
-											<input type="submit" value="{{ trans('cards_data.new_card_from_data') }}" />
+											<input type="submit" value="{{ trans('cards_data.new_card_variation_from_data') }}" />
 										</form>
 									</td>
 								</tr>
@@ -142,6 +146,14 @@
 									</td>
 								</tr>
 							@endforeach
+								<tr>
+									<td colspan="2" class="text-center">
+										<form action="{{ route('admin.crawlers.cards-data.new-variation', [$crawler, $cardData]) }}" method="post">
+											{{ csrf_field() }}
+											<input type="submit" value="{{ trans('cards_data.new_variation_from_data') }}" />
+										</form>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 					</dd>

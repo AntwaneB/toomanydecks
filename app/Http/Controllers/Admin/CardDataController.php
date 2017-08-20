@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Card;
 use App\Models\Crawling\CardData;
 use App\Models\Crawling\Crawler;
+use App\Models\Variation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use TomLingham\Searchy\Facades\Searchy;
@@ -32,10 +33,15 @@ class CardDataController extends Controller
         	if (empty($cardData->card_id))
 	        {
 	        	$explodedName = explode('-', str_slug($cardData->name));
+	        	$explodedName = array_diff($explodedName, [
+	        		'playing',
+			        'card',
+			        'cards',
+		        ]);
 
 	        	$potentialMatches = Card::where('slug', 'LIKE', '%' . $explodedName[0] . '%');
-	        	for ($i = 1; $i < count($explodedName); $i++)
-	        		$potentialMatches = $potentialMatches->orWhere('slug', 'LIKE', '%' . $explodedName[$i] . '%');
+	        	foreach ($explodedName as $segment)
+	        		$potentialMatches = $potentialMatches->orWhere('slug', 'LIKE', '%' . $segment . '%');
 	        	$potentialMatches = $potentialMatches->get();
 
 	        	foreach ($potentialMatches as &$potentialMatch)
@@ -104,6 +110,29 @@ class CardDataController extends Controller
 	        $cardsDatum->variation_id = $request->get('variation');
 	    $cardsDatum->save();
 
+	    if ($request->has('variation'))
+	    {
+		    $cardsDatum->load('cardPage');
+
+			$variation = Variation::with('stores')->findOrFail($cardsDatum->variation_id);
+			if ($variation->stores->contains($crawler->store_id))
+			{
+				$variation->stores()->updateExistingPivot($crawler->store_id, [
+					'in_stock' => $cardsDatum->in_stock,
+					'price' => $cardsDatum->price,
+					'url' => $cardsDatum->cardPage->url,
+				]);
+			}
+			else
+			{
+				$variation->stores()->attach($crawler->store_id, [
+					'in_stock' => $cardsDatum->in_stock,
+					'price' => $cardsDatum->price,
+					'url' => $cardsDatum->cardPage->url,
+				]);
+			}
+	    }
+
         return redirect()->back();
     }
 
@@ -117,4 +146,41 @@ class CardDataController extends Controller
     {
         //
     }
+
+    public function newCard(Crawler $crawler, CardData $cardsDatum)
+    {
+		$card = new Card();
+		$card->brand_id = $cardsDatum->brand_id;
+		$card->name = ucwords(strtolower($cardsDatum->name));
+		$card->slug = str_slug($cardsDatum->name);
+		$card->description = $cardsDatum->description;
+		$card->save();
+
+		$cardsDatum->card_id = $card->id;
+		$cardsDatum->save();
+
+		$this->newVariation($crawler, $cardsDatum);
+
+		return redirect()->back();
+    }
+
+	public function newVariation(Crawler $crawler, CardData $cardsDatum)
+	{
+		$variation = new Variation();
+		$variation->card_id = $cardsDatum->card_id;
+		$variation->name = ucwords(strtolower($cardsDatum->name));
+		$variation->description = $cardsDatum->description;
+		$variation->save();
+
+		$cardsDatum->variation_id = $variation->id;
+		$cardsDatum->save();
+
+		$variation->stores()->attach($crawler->store_id, [
+			'in_stock' => $cardsDatum->in_stock,
+			'price' => $cardsDatum->price,
+			'url' => $cardsDatum->cardPage->url,
+		]);
+
+		return redirect()->back();
+	}
 }

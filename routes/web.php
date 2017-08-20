@@ -1,5 +1,11 @@
 <?php
 
+if (App::environment('coming-soon')) {
+	Route::get('/', 'AppController@comingSoon')->name('app.coming-soon');
+
+	return;
+}
+
 Route::get('/', 'AppController@index')->name('app.index');
 Route::get('/about', 'AppController@about')->name('app.about');
 
@@ -21,7 +27,8 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
 
     Route::resource('stores', 'StoreController');
 
-    Route::group(['prefix' => '/crawlers', 'as' => 'crawlers.'], function() {
+    Route::group(['prefix' => '/crawlers', 'as' => 'crawlers.'], function()
+    {
     	Route::group(['prefix' => '/{crawler}'], function() {
 		    Route::get('/run/list', 'CrawlerController@runList')->name('run.list');
 		    Route::get('/run/cards', 'CrawlerController@runCards')->name('run.cards');
@@ -29,7 +36,8 @@ Route::group(['prefix' => '/admin', 'as' => 'admin.', 'namespace' => 'Admin'], f
 		    Route::get('/cards-toggle', 'CrawlerController@cardsToggle')->name('cards-toggle');
 
 		    Route::group(['prefix' => '/cards-data', 'as' => 'cards-data.'], function() {
-				Route::post('/new-card', 'CardDataController@newCard')->name('new-card');
+				Route::post('/{cards_datum}/new-card', 'CardDataController@newCard')->name('new-card');
+				Route::post('/{cards_datum}/new-variation', 'CardDataController@newVariation')->name('new-variation');
 		    });
 		    Route::resource('cards-data', 'CardDataController');
 	    });

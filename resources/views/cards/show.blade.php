@@ -14,8 +14,9 @@
 		<div class="col-md-12">
 			<div class="card-info">
 				<div class="row">
+					@if (!empty($card->splashPicture->path))
 					<div class="col-md-6">
-						<img class="splash-picture" src="{{ $card->splashPicture->path ?? '/img/misc/card-splash-default.png' }}" alt="{{ trans('cards.splash_picture_alt') }}" />
+						<img class="splash-picture" src="{{ $card->splashPicture->path }}" alt="{{ trans('cards.splash_picture_alt') }}" />
 					</div>
 					<div class="col-md-6 col-no-left-padding">
 						<h1 class="name">{{ $card->name }}</h1>
@@ -24,6 +25,15 @@
 							{!! nl2br(e($card->description)) !!}
 						</p>
 					</div>
+					@else
+					<div class="col-md-12">
+						<h1 class="name">{{ $card->name }}</h1>
+						<h3 class="brand">{{ trans('cards.by_brand', ['brand' => $card->brand->name]) }}</h3>
+						<p class="text-justify">
+							{!! nl2br(e($card->description)) !!}
+						</p>
+					</div>
+					@endif
 				</div>
 			</div>
 		</div>

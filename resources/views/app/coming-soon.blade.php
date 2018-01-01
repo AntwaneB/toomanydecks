@@ -66,7 +66,7 @@
 
 		<div class="medias">
 			<p class="text-center">
-				<i class="fa fa-reddit-alien"></i><a href="#" target="_blank">talk on reddit</a>
+				<i class="fa fa-reddit-alien"></i><a href="https://www.reddit.com/r/TooManyDecks/" target="_blank">talk on reddit</a>
 			</p>
 			<p class="text-center">
 				<i class="fa fa-twitter"></i><a href="https://twitter.com/TooManyDecks" target="_blank">follow on twitter</a>
